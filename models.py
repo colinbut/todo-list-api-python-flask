@@ -55,7 +55,7 @@ class ToDoModel:
         return result
 
     def delete(self, id):
-        query = f'update {TABLENAME} set _is_deleted = true'
+        query = f'update {TABLENAME} set _is_deleted = true where id = "{id}"'
 
         result = self.conn.execute(query)
         return result
