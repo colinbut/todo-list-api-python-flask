@@ -1,0 +1,20 @@
+---
+name: build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    container: python:3.8-alpine
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      
+      - name: run linter
+        run: pylint
+
+      - name: run python tests
+        run: pytest tests/ -v
