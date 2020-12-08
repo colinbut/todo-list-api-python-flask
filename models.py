@@ -6,6 +6,7 @@ class Schema:
         self.conn = sqlite3.connect('todo.db')
         self.create_user_table()
         self.create_todo_table()
+        self.conn.close()
 
     
     def create_user_table(self):
@@ -13,7 +14,7 @@ class Schema:
         CREATE TABLE IF NOT EXISTS "User" (
             _id INTEGER PRIMARY KEY,
             name TEXT,
-            email EMAIL
+            email TEXT
         )
         """
         self.conn.execute(query)
