@@ -61,10 +61,17 @@ class ToDoModel:
         result = self.conn.execute(query)
         return result
 
-    def select(self, user_id):
+    def select_all(self, user_id):
         query = f'select * from {TABLENAME} where user_id = "{user_id}"'
 
         result = self.conn.execute(query)
 
+        return result
+
+    def select(self, todo_id, user_id):
+        query = f'select * from {TABLENAME} where user_id = "{user_id}" and id = "{todo_id}"'
+
+        result = self.conn.execute(query)
+        
         return result
 
