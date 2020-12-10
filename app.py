@@ -10,7 +10,7 @@ LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 
-@app.route("/todo", method=["GET"])
+@app.route("/todo", methods=["GET"])
 def list_todo():
     user_id = request.args.get('user_id')
     LOGGER.info("Retrieving list of todos for user: {}".format(user_id))
@@ -21,14 +21,14 @@ def list_todo():
     return Response("{}", status=200, mimetype="application/json")
 
 
-@app.route("/todo", method=["POST"])
+@app.route("/todo", methods=["POST"])
 def create_todo():
     LOGGER.info("Creating new todo: {}".format(request.json()))
     ToDoService().create_todo(request.json())
     return Response("{}", status=201, mimetype="application/json")
 
 
-@app.route("/todo", method=["PUT"])
+@app.route("/todo", methods=["PUT"])
 def update_todo():
     LOGGER.info("Updating todo")
     ToDoService().update_todo(request.json())
@@ -36,7 +36,7 @@ def update_todo():
     return Response("{}", status=204, mimetype="application/json")
 
 
-@app.route("/todo/<id>", method=["DELETE"])
+@app.route("/todo/<id>", methods=["DELETE"])
 def delete_todo(id):
     LOGGER.info("Deleting todo with id: {}".format(id))
     ToDoService().delete_todo(id)
@@ -44,7 +44,7 @@ def delete_todo(id):
     return Response("{}", status=204, mimetype="application/json")
 
 
-@app.route("/todo/<id>", method=["GET"])
+@app.route("/todo/<id>", methods=["GET"])
 def get_todo(id):
     user_id = request.args.get('user_id')
     LOGGER.info("Retrieving list of todos for user: {}".format(user_id))
