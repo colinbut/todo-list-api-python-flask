@@ -16,7 +16,7 @@ class ToDoService:
         self.model.delete(id)
 
     def get_todos(self, user_id):
-        self.model.select_all(user_id)
+        return self.model.select_all(user_id)
 
     def get_todo(self, id, user_id):
         self.model.select(id, user_id)
