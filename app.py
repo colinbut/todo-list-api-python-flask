@@ -6,31 +6,27 @@ import logging
 
 app = Flask(__name__)
 
-LOGGER = logging.getLogger()
-LOGGER.setLevel(logging.INFO)
-
 
 @app.route("/todo", methods=["GET"])
 def list_todo():
     user_id = request.args.get('user_id')
-    LOGGER.info("Retrieving list of todos for user: {}".format(user_id))
-
+    app.logger.info("Retrieving list of todos for user: {}".format(user_id))
     todos = ToDoService().get_todos(user_id)
-    LOGGER.info("Retrieved list of todos: {} for user: {}".format(todos, user_id))
+    app.logger.info("Retrieved list of todos: {} for user: {}".format(todos, user_id))
 
-    return Response("{}", status=200, mimetype="application/json")
+    return Response(todos, status=200, mimetype="application/json")
 
 
 @app.route("/todo", methods=["POST"])
 def create_todo():
-    LOGGER.info("Creating new todo: {}".format(request.json()))
+    app.logger.info("Creating new todo: {}".format(request.json()))
     ToDoService().create_todo(request.json())
     return Response("{}", status=201, mimetype="application/json")
 
 
 @app.route("/todo", methods=["PUT"])
 def update_todo():
-    LOGGER.info("Updating todo")
+    app.logger.info("Updating todo")
     ToDoService().update_todo(request.json())
     
     return Response("{}", status=204, mimetype="application/json")
@@ -38,19 +34,19 @@ def update_todo():
 
 @app.route("/todo/<id>", methods=["DELETE"])
 def delete_todo(id):
-    LOGGER.info("Deleting todo with id: {}".format(id))
+    app.logger.info("Deleting todo with id: {}".format(id))
     ToDoService().delete_todo(id)
-    LOGGER.info("Deleted todo with id: {}".format(id))
+    app.logger.info("Deleted todo with id: {}".format(id))
     return Response("{}", status=204, mimetype="application/json")
 
 
 @app.route("/todo/<id>", methods=["GET"])
 def get_todo(id):
     user_id = request.args.get('user_id')
-    LOGGER.info("Retrieving list of todos for user: {}".format(user_id))
+    app.logger.info("Retrieving list of todos for user: {}".format(user_id))
 
     todo = ToDoService().get_todo(id, user_id)
-    LOGGER.info("Retrieved todo: {} for user: {}".format(todo, user_id))
+    app.logger.info("Retrieved todo: {} for user: {}".format(todo, user_id))
 
     return Response("{}", status=200, mimetype="application/json")
 
