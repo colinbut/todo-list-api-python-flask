@@ -11,7 +11,7 @@ class Schema:
     
     def create_user_table(self):
         query = """
-        CREATE TABLE IF NOT EXISTS "User" (
+        CREATE TABLE IF NOT EXISTS "USERS" (
             _id INTEGER PRIMARY KEY,
             name TEXT,
             email TEXT
@@ -21,7 +21,7 @@ class Schema:
 
     def create_todo_table(self):
         query = """
-        CREATE TABLE IF NOT EXISTS "Todo" (
+        CREATE TABLE IF NOT EXISTS "TODO" (
             id INTEGER PRIMARY KEY,
             title TEXT,
             description TEXT,
@@ -42,7 +42,7 @@ class ToDoModel:
         self.conn = sqlite3.connect('todo.db')
 
     def create(self, text, description, user_id):
-        query = f'insert into {TABLENAME} ' \
+        query = f'insert into {self.TABLENAME} ' \
                 f'(title, description, user_id) ' \
                 f'values ("{text}","{description}", "{user_id}")'
 
@@ -50,26 +50,26 @@ class ToDoModel:
         return result
 
     def update(self, text, description):
-        query = f'update {TABLENAME} set title = {text}, description = {description}'
+        query = f'update {self.TABLENAME} set title = {text}, description = {description}'
 
         result = self.conn.execute(query)
         return result
 
     def delete(self, id):
-        query = f'update {TABLENAME} set _is_deleted = true where id = "{id}"'
+        query = f'update {self.TABLENAME} set _is_deleted = true where id = "{id}"'
 
         result = self.conn.execute(query)
         return result
 
     def select_all(self, user_id):
-        query = f'select * from {TABLENAME} where user_id = "{user_id}"'
+        query = f'select * from {self.TABLENAME} where user_id = "{user_id}"'
 
         result = self.conn.execute(query)
 
         return result
 
     def select(self, todo_id, user_id):
-        query = f'select * from {TABLENAME} where user_id = "{user_id}" and id = "{todo_id}"'
+        query = f'select * from {self.TABLENAME} where user_id = "{user_id}" and id = "{todo_id}"'
 
         result = self.conn.execute(query)
         
