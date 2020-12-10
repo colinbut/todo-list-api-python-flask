@@ -1,7 +1,7 @@
 from models import Schema
 from setup import DummyData
 from service import ToDoService
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 import logging
 
 app = Flask(__name__)
@@ -11,10 +11,11 @@ app = Flask(__name__)
 def list_todo():
     user_id = request.args.get('user_id')
     app.logger.info("Retrieving list of todos for user: {}".format(user_id))
+    
     todos = ToDoService().get_todos(user_id)
     app.logger.info("Retrieved list of todos: {} for user: {}".format(todos, user_id))
-
-    return Response(todos, status=200, mimetype="application/json")
+    
+    return jsonify(todos)
 
 
 @app.route("/todo", methods=["POST"])
@@ -53,5 +54,5 @@ def get_todo(id):
 
 if __name__ == "__main__":
     Schema()
-    DummyData()
+    DummyData(app)
     app.run(debug=True, host='0.0.0.0', port=8888)

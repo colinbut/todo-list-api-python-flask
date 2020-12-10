@@ -64,14 +64,40 @@ class ToDoModel:
     def select_all(self, user_id):
         query = f'select * from {self.TABLENAME} where user_id = "{user_id}"'
 
-        result = self.conn.execute(query)
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        result = []
+        for row in results:
+            result.append({
+                "id": row[0],
+                "title": row[1],
+                "description": row[2],
+                "_is_done": bool(row[3]),
+                "_is_deleted": bool(row[4]),
+                "created_on": row[5],
+                "due_date": row[6],
+                "user_id": row[7]
+            })
 
         return result
 
     def select(self, todo_id, user_id):
         query = f'select * from {self.TABLENAME} where user_id = "{user_id}" and id = "{todo_id}"'
 
-        result = self.conn.execute(query)
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        result = cursor.fetchone()
         
-        return result
+        return {
+            "id": result[0],
+            "title": result[1],
+            "description": result[2],
+            "_is_done": bool(result[3]),
+            "_is_deleted": bool(result[4]),
+            "created_on": result[5],
+            "due_date": result[6],
+            "user_id": result[7]
+        }
 
