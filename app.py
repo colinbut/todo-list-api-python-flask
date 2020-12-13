@@ -49,7 +49,7 @@ def get_todo(id):
     todo = ToDoService().get_todo(id, user_id)
     app.logger.info("Retrieved todo: {} for user: {}".format(todo, user_id))
 
-    return Response("{}", status=200, mimetype="application/json")
+    return jsonify(todo)
 
 
 if __name__ == "__main__":
