@@ -19,7 +19,7 @@ jobs:
           pip install pylint pytest
       
       - name: run linter
-        run: pylint
+        run: pylint src
 
       - name: run python tests
         run: pytest tests/ -v
