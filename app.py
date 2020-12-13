@@ -20,15 +20,15 @@ def list_todo():
 
 @app.route("/todo", methods=["POST"])
 def create_todo():
-    app.logger.info("Creating new todo: {}".format(request.json()))
-    ToDoService().create_todo(request.json())
+    app.logger.info("Creating new todo: {}".format(request.json))
+    ToDoService().create_todo(request.json)
     return Response("{}", status=201, mimetype="application/json")
 
 
 @app.route("/todo", methods=["PUT"])
 def update_todo():
     app.logger.info("Updating todo")
-    ToDoService().update_todo(request.json())
+    ToDoService().update_todo(request.json)
     
     return Response("{}", status=204, mimetype="application/json")
 
