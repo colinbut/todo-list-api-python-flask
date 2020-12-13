@@ -27,7 +27,7 @@ def create_todo():
 
 @app.route("/todo", methods=["PUT"])
 def update_todo():
-    app.logger.info("Updating todo")
+    app.logger.info("Updating todo: {}".format(request.json))
     ToDoService().update_todo(request.json)
     
     return Response("{}", status=204, mimetype="application/json")

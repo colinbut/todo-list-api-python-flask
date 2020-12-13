@@ -10,7 +10,7 @@ class ToDoService:
         self.model.create(params["title"], params["description"], params["user_id"])
 
     def update_todo(self, params):
-        self.model.update(params["title"], params["description"], params["user_id"])
+        self.model.update(params["title"], params["description"], params["id"])
 
     def delete_todo(self, id):
         self.model.delete(id)

@@ -41,25 +41,32 @@ class ToDoModel:
         super().__init__()
         self.conn = sqlite3.connect('todo.db')
 
-    def create(self, text, description, user_id):
+    def create(self, title, description, user_id):
         query = f'insert into {self.TABLENAME} ' \
                 f'(title, description, user_id) ' \
-                f'values ("{text}","{description}", "{user_id}")'
+                f'values ("{title}","{description}", "{user_id}")'
 
-        result = self.conn.execute(query)
-        return result
+        print(query)
 
-    def update(self, text, description):
-        query = f'update {self.TABLENAME} set title = {text}, description = {description}'
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        self.conn.commit()
 
-        result = self.conn.execute(query)
-        return result
+    def update(self, title, description, todo_id):
+        query = f'update {self.TABLENAME} set title = "{title}", description = "{description}" ' \
+                f'where id = {todo_id}'
+
+        print(query)
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        self.conn.commit()
 
     def delete(self, id):
         query = f'update {self.TABLENAME} set _is_deleted = true where id = "{id}"'
 
-        result = self.conn.execute(query)
-        return result
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        self.conn.commit()
 
     def select_all(self, user_id):
         query = f'select * from {self.TABLENAME} where user_id = "{user_id}"'
