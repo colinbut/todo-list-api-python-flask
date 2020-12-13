@@ -1,5 +1,6 @@
 # ignore everything
 **
 
+# except these specific files
 !src/**
 !requirements.txt
