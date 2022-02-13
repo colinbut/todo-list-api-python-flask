@@ -31,3 +31,7 @@ curl -X PUT -H "Content-Type: application/json" -d "{ \"description\": \"Organiz
 
 curl -X DELETE http://localhost:8888/todo/{todo_id}
 ```
+
+## Author
+
+Colin But.
